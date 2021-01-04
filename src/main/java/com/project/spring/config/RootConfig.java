@@ -18,10 +18,10 @@ public class RootConfig {
 	@Bean(destroyMethod="close")
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.mariadb.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/spring");
-		dataSource.setUsername("ksw");
-		dataSource.setPassword("1234");
+		dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
+		dataSource.setUrl("jdbc:mariadb://121.169.194.198:3306/spring");
+		dataSource.setUsername("planty");
+		dataSource.setPassword("Planty2020");
 		dataSource.setDefaultAutoCommit(false);
 		return dataSource;
 	}
@@ -34,3 +34,11 @@ public class RootConfig {
 		return (SqlSessionFactory) sqlSessionFactory.getObject();
 	}
 }
+
+/*
+ * 	driverClassName = "org.mariadb.jdbc.Driver"
+    회사
+	url="jdbc:mariadb://121.169.194.198:3306/spring"	
+	집
+	url="jdbc:mariadb://localhost:3306/spring"
+*/
