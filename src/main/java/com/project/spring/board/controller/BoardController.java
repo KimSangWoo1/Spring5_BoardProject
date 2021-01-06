@@ -155,7 +155,7 @@ public class BoardController {
 	@RequestMapping(value = "board/boardUpdate.do", method = RequestMethod.POST, produces="text/plain; charset=UTF-8")
 	@ResponseBody
 	public ModelAndView boardUpdate(BoardVO boardVO, Pagination pagination) throws Exception {
-
+		System.out.println("1수정 - > 제목: "+boardVO.getTitle());
 		boardService.boardUpdateService(boardVO);
 
 		int idx = boardVO.getIdx();

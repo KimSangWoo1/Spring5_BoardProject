@@ -40,20 +40,16 @@ public class BoardServiceImpl implements BoardService {
 	//3. 게시글 상세 내용
 	@Override
 	public BoardVO boardDetailViewService(int idx) {
-		 //�Խñ� ���� �������� 
-		 BoardVO boardVO = boardMapper.boardDetailView(idx);
-
-		//DB���� ������ �Խñ� ���� ��Ʈ�ѷ��� ������
-		return boardVO;
+		 return boardMapper.boardDetailView(idx);
 	}
 	
 	//4. 게시글 조회수 증가
 	@Override
 	public void boardAddHitCountService(BoardVO boardVO) {
 	
-		//��ȸ�� ��������
+		//조회수 get
 		int hit_count = boardVO.getHit_count();
-		//��ȸ�� +1 ������Ʈ �ϱ�
+		//조회수 +1 하기
 		boardVO.setHit_count(hit_count+1);
 		boardMapper.boardAddHitCount(boardVO);
 	}
@@ -78,6 +74,7 @@ public class BoardServiceImpl implements BoardService {
 	//8. 게시글 수정
 	@Override
 	public void boardUpdateService(BoardVO boardVO) {
+		System.out.println("1수정 - > 제목: "+boardVO.getTitle());
 		boardMapper.boardUpdate(boardVO);
 	}
 	//9. 게시글 답글 준비 ( group_order , depth 값 져오기)

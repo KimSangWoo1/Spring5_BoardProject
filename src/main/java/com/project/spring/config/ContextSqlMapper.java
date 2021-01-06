@@ -32,8 +32,8 @@ public class ContextSqlMapper {
         Resource[] res=new PathMatchingResourcePatternResolver()
         		.getResources("classpath*:mybatis/mapper/*.xml");
         factoryBean.setMapperLocations(res);
-        factoryBean.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
-        //factoryBean.setTypeAliasesPackage("com.project.spring.board.vo");
+        //factoryBean.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
+        factoryBean.setTypeAliasesPackage("com.project.spring.board.vo");
         return factoryBean;
     }
 
@@ -42,4 +42,7 @@ public class ContextSqlMapper {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
     
+    // classpath: classes 폴더와 jar 폴더를 순환하면서 첫번째로 발견되는 파일을 가져옵니다. 즉즉, 단일 파일이 로딩되는 형태가 됩니다.
+    // classpath*: 	classes 폴더와 jar 폴더를 순환하면서 conf 폴더의 spring-context.xml 파일을 모두 찾아냅니다.   즉, 복수개의 파일이 로딩되는 형태가 됩니다.
+
 }

@@ -1,6 +1,9 @@
 package com.project.spring.config;
 
-import org.springframework.context.annotation.Configuration;
+import javax.servlet.Filter;
+
+import org.springframework.lang.Nullable;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 //AbstractAnnotationConfigDispatcherServletInitializer 는  Dispatcher Servlet 과 ContextLoaderListner 생성 아피치 톰캣 7, 서블릿 3.0 이상에서만 지원
 
@@ -25,6 +28,15 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
         
         return new String[] {"/"};
     }
+    
+    // encodingFilter  안하면 한글 깨짐 jsp-> controller
+    @Override
+	protected Filter[] getServletFilters() {
+    	CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
+    	encodingFilter.setEncoding("UTF-8");
+		return new Filter[] {encodingFilter};
+	}
+
 }
 
 /* AbstractAnnotationConfigDispatcherServletInitializer
