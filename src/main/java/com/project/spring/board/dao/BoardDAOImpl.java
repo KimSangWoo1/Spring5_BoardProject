@@ -12,8 +12,9 @@ import com.project.spring.board.util.Pagination;
 import com.project.spring.board.vo.BoardVO;
 
 
-@Repository("boardDAO")
+@Repository()
 public class BoardDAOImpl implements BoardDAO {
+
 
 	//@Resource(name = "sqlSession")
 	@Autowired

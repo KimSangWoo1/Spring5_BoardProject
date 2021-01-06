@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.spring.board.dao.UserDAO;
+import com.project.spring.board.mapper.UserMapper;
 import com.project.spring.board.vo.UserVO;
 
 
@@ -15,11 +15,11 @@ import com.project.spring.board.vo.UserVO;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserDAO userDAO;
+	private UserMapper userMapper;
 
 	// 1. ȸ����ȸ Repository�� ������ ���� ( ���� ���� ��ȣȭ �� ������ �����Ұ� ������ �����ϰ� �־����) ex: ��ȣȭ
 	@Override
-	public boolean CheckUserService(Map<String, Object> map) {
+	public boolean CheckUserService(Map<String, Object> map) throws Exception {
 		// �����
 		boolean result = false;
 
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 		userVO.setUserid(userid);
 		userVO.setUserpw(userpw);
 
-		userVO = userDAO.CheckUser(userVO);
+		userVO = userMapper.CheckUser(userVO);
 		if(userVO!=null) {
 			int no = userVO.getUserno();
 			if (no != 0) {
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	}
 	//2. ȸ�� �α���
 	@Override
-	public boolean LoginUserService(Map<String, Object> map, HttpSession session) {
+	public boolean LoginUserService(Map<String, Object> map, HttpSession session) throws Exception {
 		// �����
 		boolean result = false;
 
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 		userVO.setUserid(userid);
 		userVO.setUserpw(userpw);
 
-		userVO = userDAO.CheckUser(userVO);
+		userVO = userMapper.CheckUser(userVO);
 		if(userVO!=null) {
 			int no = userVO.getUserno();
 			if (no != 0) {
@@ -63,13 +63,13 @@ public class UserServiceImpl implements UserService {
 	
 	//3. ȸ�� �ߺ� Ȯ��
 	@Override
-	public boolean DuplicateUserService(String userid) {		
-		return  userDAO.DuplicateUser(userid);
+	public boolean DuplicateUserService(String userid) throws Exception {		
+		return  userMapper.DuplicateUser(userid);
 	}
 	
 	//4. ȸ������
 	@Override
-	public boolean InsertUserService(Map<String, Object> map) {
+	public boolean InsertUserService(Map<String, Object> map) throws Exception {
 		boolean result = false;
 		
 		UserVO userVO = new UserVO();
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 		userVO.setUserid(userid);
 		userVO.setUserpw(userpw);
 		
-		int insertResult = userDAO.InsertUser(userVO);
+		int insertResult = userMapper.InsertUser(userVO);
 		
 		if(insertResult>0) {
 			result= true;
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
 
 	//5. �α׾ƿ�
 	@Override
-	public void LogoutService(HttpSession session) {
+	public void LogoutService(HttpSession session) throws Exception {
 		session.invalidate();			
 	}
 }

@@ -1,7 +1,9 @@
 package com.project.spring.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 //AbstractAnnotationConfigDispatcherServletInitializer 는  Dispatcher Servlet 과 ContextLoaderListner 생성 아피치 톰캣 7, 서블릿 3.0 이상에서만 지원
+
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer  {
  
 	// ContextLoaderListner 매핑

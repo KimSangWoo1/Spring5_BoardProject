@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.spring.board.dao.UserMapper">
+	<!-- 로그인시 아이디 비밀번호 조회 -->
+	<select id="CheckUser" parameterType="com.project.spring.board.vo.UserVO" resultType="com.project.spring.board.vo.UserVO">
+		SELECT *
+		FROM tbl_user
+		WHERE
+		userid = #{userid} AND userpw = #{userpw}
+	</select>
+	
+	<!--  회원가입시 회원 중복 점검 -->
+	<select id="DuplicateUser" resultType="String">
+		SELECT userid
+		FROM tbl_user
+		WHERE
+		userid = '${userid}'
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="InsertUser" parameterType="UserVO"
+		useGeneratedKeys="true" keyProperty="userno">
+			<![CDATA[
+				INSERT INTO tbl_user (userid, userpw) 
+							VALUES (#{userid} ,#{userpw})		
+			]]>
+	</insert>
+
+</mapper>
+
+<!-- CDATA 태그안에서는 전부 문자열로 치환함 < , > ( ) 같은걸 쓰면 오류 날 경우를 없애줌 -->
+<!-- https://java119.tistory.com/70 -->

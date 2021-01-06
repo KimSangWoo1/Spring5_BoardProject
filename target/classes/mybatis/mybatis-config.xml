@@ -6,12 +6,17 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="MemberVO"
-			type="com.test.myapp.tutorial.vo.MemberVO" />
+			type="com.project.spring.tutorial.vo.MemberVO" />
 		<typeAlias alias="ProductVO"
-			type="com.test.myapp.tutorial.vo.ProductVO" />
+			type="com..project.tutorial.vo.ProductVO" />
 		<typeAlias alias="UserVO"
-			type="com.test.myapp.board.vo.UserVO" />
+			type="com.project.spring.board.vo.UserVO" />
 		<typeAlias alias="BoardVO"
-			type="com.test.myapp.board.vo.BoardVO" />
+			type="com.project.spring.board.vo.BoardVO" />
 	</typeAliases>
+ 	
+	<mappers>
+		<mapper resource="mapper/UserMapper.xml"/>
+	</mappers>
+	
 </configuration>

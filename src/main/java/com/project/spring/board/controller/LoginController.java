@@ -35,7 +35,7 @@ public class LoginController {
 	// 1.�α��� �õ� ajax
 	@RequestMapping(value = "/loginChk.do", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, String> LoginChk(HttpServletRequest request) {
+	public HashMap<String, String> LoginChk(HttpServletRequest request) throws Exception {
 		HashMap<String, String> result = new HashMap<String, String>();
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -49,14 +49,14 @@ public class LoginController {
 		boolean check = userService.LoginUserService(map, session);
 
 		if (check) {
-			String Msg = "�α��� ����";
+			String Msg = "로그인 성공";
 			String Code = "0";
 			session.setAttribute("userid", id);
 			result.put("Msg", Msg);
 			result.put("Code", Code);
-			log.info("�α��� ����");
+			log.info("로그인 성공");
 		} else {
-			String Msg = "���̵�� ��й�ȣ�� Ȯ���ϼ���.";
+			String Msg = "아이디와 비밀번호를 확인해주세요";
 			String Code = "1";
 
 			result.put("Msg", Msg);

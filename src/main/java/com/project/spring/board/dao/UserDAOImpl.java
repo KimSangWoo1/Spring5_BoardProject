@@ -12,8 +12,13 @@ import com.project.spring.board.vo.UserVO;
 
 
 
-@Repository("userDAO")
-public class UserDAOImpl implements UserDAO{
+//@Repository()
+public class UserDAOImpl {
+/*
+
+implements UserMapper{
+	
+	private final String nameSpace ="com.project.spring.board.dao.UserMapper";
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
@@ -21,13 +26,13 @@ public class UserDAOImpl implements UserDAO{
 	//1. 로그인 user (id,pw) 확인
 	@Override
 	public UserVO CheckUser(UserVO userVO) {		
-		return sqlSession.selectOne("login.CheckUser", userVO);
+		return sqlSession.selectOne(nameSpace+"CheckUser", userVO);
 	}
 	
 	//2. 유저 중복 확인
 	@Override
 	public boolean DuplicateUser(String userid) {
-		String resultId =sqlSession.selectOne("login.DuplicateUser", userid);
+		String resultId =sqlSession.selectOne(nameSpace+"DuplicateUser", userid);
 		if(resultId==null ||resultId.trim().isEmpty()) {
 			return false;
 		}else {
@@ -39,7 +44,7 @@ public class UserDAOImpl implements UserDAO{
 	//3. 회원가입
 	@Override
 	public int InsertUser(UserVO userVO) {
-		return sqlSession.insert("login.InsertUser", userVO);
+		return sqlSession.insert(nameSpace+"InsertUser", userVO);
 	}
 	
 	/*

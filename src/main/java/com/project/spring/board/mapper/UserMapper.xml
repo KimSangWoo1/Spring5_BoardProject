@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="login">
+<mapper namespace="com.project.spring.board.mapper.UserMapper">
 	<!-- 로그인시 아이디 비밀번호 조회 -->
-	<select id="CheckUser" resultType="UserVO">
+	<select id="CheckUser" parameterType="com.project.spring.board.vo.UserVO" resultType="com.project.spring.board.vo.UserVO">
 		SELECT *
 		FROM tbl_user
 		WHERE
@@ -19,7 +19,7 @@
 	</select>
 	
 	<!-- 회원가입 -->
-	<insert id="InsertUser" parameterType="UserVO"
+	<insert id="InsertUser" parameterType="com.project.spring.board.vo.UserVO"
 		useGeneratedKeys="true" keyProperty="userno">
 			<![CDATA[
 				INSERT INTO tbl_user (userid, userpw) 

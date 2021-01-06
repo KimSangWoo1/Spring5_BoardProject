@@ -34,7 +34,7 @@ public class SignUpController {
 	// 2. ȸ������ ����
 	@RequestMapping(value = "/signUpChk.do", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, String> SignUpChk(HttpServletRequest httpServletRequest) {
+	public HashMap<String, String> SignUpChk(HttpServletRequest httpServletRequest) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		HashMap<String, String> result = new HashMap<String, String>();
 

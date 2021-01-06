@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
-@MapperScan(basePackages = {"com.project.spring.board.dao"})
+//Mybatis의 Mapper 인터페이스를 검색함
+@MapperScan(basePackages = {"com.project.spring.board.mapper"})
 public class ContextSqlMapper {
 	
 	@Autowired
@@ -24,8 +27,11 @@ public class ContextSqlMapper {
     public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
-        factoryBean.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
-        factoryBean.setMapperLocations(applicationContext.getResources("classpath:/mybatis/mappers/*.xml"));
+        Resource[] res=new PathMatchingResourcePatternResolver()
+        		.getResources("classpath:com/project/spring/board/mapper/*.xml");
+        factoryBean.setMapperLocations(res);
+        factoryBean.setConfigLocation(applicationContext.getResource("classpath*:/mybatis/mybatis-config.xml"));
+       // factoryBean.setTypeAliasesPackage("com.project.spring.board.vo");
         return factoryBean;
     }
 
