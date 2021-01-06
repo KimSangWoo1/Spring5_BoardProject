@@ -19,8 +19,10 @@ import com.project.spring.board.interceptor.LoginInterceptor;
  * 이것은 Java 8이 WebMvcConfigurerAdapater클래스 의 기능을 다루는 인터페이스에 기본 메소드를 도입했기 때문이다.
   만약 그래도 사용하고자 한다면 Spring 5부터는 WebMvcConfigurer 인터페이스를 구현할 필요가 있다.
  */
-@EnableWebMvc // 스프링 MVC 활성화
-@ComponentScan(basePackages = { "com.project.spring.board.controller" }) // .controller
+//스프링 MVC 활성화
+@EnableWebMvc 
+//@Component 어노테이션 및 streotype(@Service, @Repository, @Controller.) 어노테이션이 부여된 Class들을 자동으로 Scan하여 Bean으로 등록해준다.
+@ComponentScan(basePackages = { "com.project.spring.board" })
 public class ServletConfig implements WebMvcConfigurer {
 
 	// 뷰 리졸버 생성

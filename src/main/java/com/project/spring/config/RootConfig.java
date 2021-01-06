@@ -10,11 +10,13 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.RestController;
 
 @Configuration
+@EnableAspectJAutoProxy
 @Import({
 	ContextDataSource.class,
 	ContextSqlMapper.class

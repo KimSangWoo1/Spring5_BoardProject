@@ -3,9 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>게시글 보기</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<title>게시글 보기</title>
 </head>
 <body>
 <%@include file="../../include/header.jsp" %> 

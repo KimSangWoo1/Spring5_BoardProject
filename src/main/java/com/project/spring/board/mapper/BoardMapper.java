@@ -5,10 +5,12 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import com.project.spring.board.util.Pagination;
 import com.project.spring.board.vo.BoardVO;
 
+@Repository
 @Mapper
 public interface BoardMapper {
 

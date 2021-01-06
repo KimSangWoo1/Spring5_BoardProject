@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.spring.board.vo.UserVO;
 
+@Repository
 @Mapper
 public interface UserMapper {
 
