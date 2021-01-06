@@ -3,7 +3,7 @@
 
 <mapper namespace="com.project.spring.board.mapper.UserMapper">
 	<!-- 로그인시 아이디 비밀번호 조회 -->
-	<select id="CheckUser" parameterType="com.project.spring.board.vo.UserVO" resultType="com.project.spring.board.vo.UserVO">
+	<select id="checkUser" resultType="UserVO">
 		SELECT *
 		FROM tbl_user
 		WHERE
@@ -11,20 +11,25 @@
 	</select>
 	
 	<!--  회원가입시 회원 중복 점검 -->
-	<select id="DuplicateUser" resultType="String">
-		SELECT userid
+	<select id="duplicateUser" resultType="boolean">
+		SELECT 
+		IFNULL(MIN(userid),0)userid
 		FROM tbl_user
 		WHERE
 		userid = '${userid}'
 	</select>
 	
 	<!-- 회원가입 -->
-	<insert id="InsertUser" parameterType="com.project.spring.board.vo.UserVO"
+	<insert id="insertUser" parameterType="UserVO" 
 		useGeneratedKeys="true" keyProperty="userno">
+			
 			<![CDATA[
 				INSERT INTO tbl_user (userid, userpw) 
-							VALUES (#{userid} ,#{userpw})		
+							VALUES (#{userid} ,#{userpw})
 			]]>
+			<selectKey resultType="int" keyProperty="userno" order="AFTER">
+				SELECT LAST_INSERT_ID()
+			</selectKey>
 	</insert>
 
 </mapper>

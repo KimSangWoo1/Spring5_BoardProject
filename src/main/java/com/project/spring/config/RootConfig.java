@@ -24,31 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 @ComponentScan(basePackages = {"com.project.spring"})// ,excludeFilters = {@ComponentScan.Filter(type= FilterType.ANNOTATION, value = Controller.class)})
 public class RootConfig {
 
-	//DB 연결 소스
-	@Bean(destroyMethod="close")
-	public DataSource dataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-		dataSource.setUrl("jdbc:mariadb://121.169.194.198:3306/spring");
-		dataSource.setUsername("planty");
-		dataSource.setPassword("Planty2020");
-		dataSource.setDefaultAutoCommit(false);
-		return dataSource;
-	}
-	
-    //SqlSessionFacotry 사용
-	@Bean
-	public SqlSessionFactory sqlSessionFactory()throws Exception{
-		SqlSessionFactoryBean sqlSessionFactory=new SqlSessionFactoryBean();
-        sqlSessionFactory.setDataSource(dataSource());
-		return (SqlSessionFactory) sqlSessionFactory.getObject();
-	}
 }
 
-/*
- * 	driverClassName = "org.mariadb.jdbc.Driver"
-    회사
-	url="jdbc:mariadb://121.169.194.198:3306/spring"	
-	집
-	url="jdbc:mariadb://localhost:3306/spring"
-*/
+

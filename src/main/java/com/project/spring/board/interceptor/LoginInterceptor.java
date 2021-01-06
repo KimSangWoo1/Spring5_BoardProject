@@ -21,10 +21,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		this.userid = (String) session.getAttribute("userid");
 		//����� ���� ���� ���� --> �α��� ����
 		if(userid==null ||userid.trim().isEmpty()) {	
-			System.out.println("�� �α���");
+			System.out.println("로그인 세션 만료/ 비로그인");
 			
 			//�α��α⺻ �������� �̵�
-			response.sendRedirect("/myapp/login.do");
+			response.sendRedirect("/spring/login.do");
 			return false;
 		}
 		// �α����� �Ǿ�����

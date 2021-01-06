@@ -20,16 +20,16 @@
   <div class="collapse navbar-collapse" id="navbarsExample">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/myapp/board/boardList.do/">게시글 목록 </a>
+        <a class="nav-link" href="/spring/board/boardList.do/">게시글 목록 </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href=/myapp/board/boardPagingList.do/>뷰페이징 목록</a>
+        <a class="nav-link" href=/spring/board/boardPagingList.do/>뷰페이징 목록</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/myapp/board/boardWrite.do/">게시글 작성</a>
+        <a class="nav-link" href="/spring/board/boardWrite.do/">게시글 작성</a>
       </li>	 
   	  <li class="nav-item">
-        <a class="nav-link" href="/myapp/logout.do">로그아웃</a>
+        <a class="nav-link" href="/spring/logout.do">로그아웃</a>
       </li>
 
     </ul>

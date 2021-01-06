@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="board">
+<mapper namespace="com.project.spring.board.mapper.BoardMapper">
 
 	<!-- 게시글 리스트 가져오기 -->
 	<select id="selectBoardList" parameterType="hashmap"
@@ -57,7 +57,7 @@
 		<!-- 게시글 상세 내용 -->
 	<select id="boardDetailView" parameterType="int" resultType="BoardVO">
 		<![CDATA[ 
-			SELECT * FROM tbl_board WHERE idx=${idx} 
+			SELECT * FROM tbl_board WHERE idx=#{idx} 
 		]]>
 	</select>
 	
@@ -69,14 +69,14 @@
 	</update>
 	
 	<!-- 게시글 전채 갯수  -->
-	<select id="boardListSize" resultType="int">
+	<select id="boardAllListSize" resultType="int">
 		<![CDATA[
 			SELECT COUNT(*) FROM tbl_board
 		]]>	
 	</select>
 	
 	<!-- 패이지 갯수 만큼 가져오기 -->
-	<select id="boardPagingList" parameterType="int" resultType="BoardVO">
+	<select id="boardPagingList" parameterType="int" resultType="com.project.spring.board.vo.BoardVO">
 		<![CDATA[
 		SELECT 
 			*
@@ -90,32 +90,32 @@
 	
 	<delete id="boardDelete" parameterType="int">
 		<![CDATA[
-			DELETE FROM tbl_board WHERE idx=${idx}
+			DELETE FROM tbl_board WHERE idx=#{idx}
 		]]>
 	</delete>
 
 		<!-- 게시글 수정 -->
-	<update id="boardUpdate" parameterType="BoardVO">
+	<update id="boardUpdate" parameterType="com.project.spring.board.vo.BoardVO">
 		<![CDATA[ 
 			UPDATE tbl_board
 			SET
 				title = #{title},
 				content = #{content}
 			WHERE
-				idx = ${idx}
+				idx = #{idx}
 		]]>
 	</update>
 	<!-- 게시글 마지막 번호 가져오기 -->
-	<select id="lastBoardNO" resultType="int">
+	<select id="selectLastBoardNo" resultType="int">
 		<![CDATA[
 			SELECT idx FROM tbl_board ORDER BY idx DESC limit 1
 		]]>
 	</select>
 	
 	<!-- 게시글 답글 준비 -->
-	<select id="boardReplyReady" parameterType="int" resultType="BoardVO">
+	<select id="boardReplyReady" parameterType="int" resultType="com.project.spring.board.vo.BoardVO">
 		SELECT group_no, 
-		group_order, depth FROM tbl_board WHERE idx= ${idx} 
+		group_order, depth FROM tbl_board WHERE idx= #{idx} 
 	</select>
 	
 	<!-- 게시글 마지막 group_order 값 가져오기 -->
@@ -123,13 +123,13 @@
 		SELECT 
 			group_order 
 		FROM tbl_board 
-		WHERE group_no =${idx} 
+		WHERE group_no =#{idx} 
 		ORDER BY group_order DESC 
 		LIMIT 1
 	</select>	
 	
 	<!-- 게시글 답글 달기 -->
-	<insert id="boardReply" parameterType="BoardVO">
+	<insert id="boardReply" parameterType="com.project.spring.board.vo.BoardVO">
 		INSERT INTO tbl_board
 			(
 				title,
@@ -154,7 +154,7 @@
 			)
 	</insert>
 	<!-- 답 답글일 경우 다음 답글에 order 값을 찾는다. -->
-	<select id="boardNextGroupOrder" parameterType="BoardVO" resultType="int">
+	<select id="boardNextGroupOrder" parameterType="com.project.spring.board.vo.BoardVO" resultType="int">
 		<![CDATA[
 			SELECT
 			IFNULL(MIN(group_order),0)group_order
@@ -168,7 +168,7 @@
 		
 	</select>
 		<!--작성시 답 글들 order값 수정하기 +1-->
-	<update id="boardAddGroupOrder" parameterType="BoardVO">
+	<update id="boardAddGroupOrder" parameterType="com.project.spring.board.vo.BoardVO">
 		<![CDATA[
 		UPDATE tbl_board 
 		SET
@@ -179,14 +179,14 @@
 	</update>
 	
 	<!-- 게시글 삭제 전 준비 -->
-	<select id="boardDeleteReady" parameterType="int" resultType="BoardVO">
+	<select id="boardDeleteReady" parameterType="int" resultType="com.project.spring.board.vo.BoardVO">
 		<![CDATA[
-			SELECT * FROM tbl_board WHERE idx=${idx}
+			SELECT * FROM tbl_board WHERE idx=#{idx}
 		]]>
 	</select>
 	
 	<!-- 게시글 삭제 전 답글들 order값 수정하기 -1 -->
-	<update id="boardSubGroupOrder" parameterType="BoardVO">
+	<update id="boardSubGroupOrder" parameterType="com.project.spring.board.vo.BoardVO">
 		<![CDATA[
 			UPDATE 
 				tbl_board

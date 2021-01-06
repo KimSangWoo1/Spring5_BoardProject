@@ -48,7 +48,7 @@
 	   	 function boardReply(){
 
 	   		 $.ajax({
-	    		 url:"/myapp/board/boardReply.do",
+	    		 url:"/spring/board/boardReply.do",
 	    		 type:"POST",
 	    		 data:{
 	    			 title : $("#title").val(),
@@ -59,7 +59,7 @@
 	    		 success : function(data){
 	    			 alert("답글 작성 완료");
 	    			 if(data.code==0){
-						 window.location.href = "/myapp/board/boardList.do";
+						 window.location.href = "/spring/board/boardList.do";
 					 }else{
 						//location.reload();
 				 	}

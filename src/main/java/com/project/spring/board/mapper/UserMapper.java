@@ -1,6 +1,7 @@
 package com.project.spring.board.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -11,15 +12,16 @@ public interface UserMapper {
 
 	// 1.회원 아이디 비밀번호 체크
 	//@Select("SELECT * FROM tbl_user WHERE userid = #{userid} AND userpw = #{userpw}")
-	UserVO CheckUser(UserVO userVO) throws Exception;
+	UserVO checkUser(UserVO userVO) throws Exception;
 
-	// 2. ȸ�� �ߺ� Ȯ��
-	boolean DuplicateUser(String userid) throws Exception;
+	// 2. 회원 중복 아이디 체크
+	boolean duplicateUser(@Param("userid")String userid) throws Exception;
 
-	// 3. ȸ�� ����
-	int InsertUser(UserVO userVO) throws Exception;
+	// 3. 회원 가입
+	int insertUser(UserVO userVO) throws Exception;
 
 	/*
-	 * //4.�α׾ƿ� void Logout(HttpSession session);
+	 * //4.로그아웃
+	 * void logpout(HttpSession session){}
 	 */
 }

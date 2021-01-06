@@ -166,15 +166,18 @@
 			<version>4.7</version> <scope>test</scope> </dependency> -->
 	</dependencies>
 	<build>
-	<resources>
-           <resource>
-              <filtering>false</filtering>
-              <directory>src</directory>
-              <includes>
-                <include>**/com/project/spring/mapper/*.xml</include>
-              </includes>
-           </resource>
-        </resources>
+	<!-- 
+			<resources>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src</directory>
+				<includes>
+					<include>**/com/project/spring/mapper/*.xml</include>
+					<include>resources/**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	 -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

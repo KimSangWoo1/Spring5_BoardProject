@@ -17,9 +17,9 @@ public interface BoardService {
 	//4. 게시글 조회수 올리기
 	void boardAddHitCountService(BoardVO boardVO);
 	//5. 게시글 총 갯수
-	int boardListCnt();
+	int boardAllListSize();
 	//6. 게시판 뷰페이징 리스트
-	List<BoardVO> boardPagingService(Pagination pagination);
+	List<BoardVO> boardPagingListService(Pagination pagination);
 	//7. 게시판 삭제
 	void boardDeleteService(int idx);
 	//8. 게시판 수정

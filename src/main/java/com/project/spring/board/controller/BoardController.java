@@ -50,7 +50,7 @@ public class BoardController {
 	@RequestMapping(value = "board/boardInsert.do", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView boardInsert(HttpServletRequest request) throws Exception {
-		log.info("�Խñ� �ۼ� �Ϸ�");
+		log.info("게시글 작성");
 		
 		HttpSession session = request.getSession();
 		String create_id = session.getAttribute("userid").toString();
@@ -107,11 +107,11 @@ public class BoardController {
 		ModelAndView mv = new ModelAndView("/jsp/board/boardViewPaging");
 
 		// 1. 게시글  총 갯수 가져오기
-		int listCnt = boardService.boardListCnt();
+		int listCnt = boardService.boardAllListSize();
 		// 2. 뷰페이징 범위, 페이지 갯수 설정
 		Pagination pagination = new Pagination(listCnt, curPage);
 		// 3. 뷰페이징 게시글 리스트 가져오기
-		List<BoardVO> boardList = boardService.boardPagingService(pagination);
+		List<BoardVO> boardList = boardService.boardPagingListService(pagination);
 		for (BoardVO board : boardList) {
 			System.out.println(board.getTitle());
 		}
@@ -152,7 +152,7 @@ public class BoardController {
 	}
 
 	// 8. 게시글 수정 완료
-	@RequestMapping(value = "board/boardUpdate.do", method = RequestMethod.POST)
+	@RequestMapping(value = "board/boardUpdate.do", method = RequestMethod.POST, produces="text/plain; charset=UTF-8")
 	@ResponseBody
 	public ModelAndView boardUpdate(BoardVO boardVO, Pagination pagination) throws Exception {
 

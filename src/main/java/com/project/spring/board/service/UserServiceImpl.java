@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 		userVO.setUserid(userid);
 		userVO.setUserpw(userpw);
 
-		userVO = userMapper.CheckUser(userVO);
+		userVO = userMapper.checkUser(userVO);
 		if(userVO!=null) {
 			int no = userVO.getUserno();
 			if (no != 0) {
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 		userVO.setUserid(userid);
 		userVO.setUserpw(userpw);
 
-		userVO = userMapper.CheckUser(userVO);
+		userVO = userMapper.checkUser(userVO);
 		if(userVO!=null) {
 			int no = userVO.getUserno();
 			if (no != 0) {
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 	//3. ȸ�� �ߺ� Ȯ��
 	@Override
 	public boolean DuplicateUserService(String userid) throws Exception {		
-		return  userMapper.DuplicateUser(userid);
+		return  userMapper.duplicateUser(userid);
 	}
 	
 	//4. ȸ������
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 		userVO.setUserid(userid);
 		userVO.setUserpw(userpw);
 		
-		int insertResult = userMapper.InsertUser(userVO);
+		int insertResult = userMapper.insertUser(userVO);
 		
 		if(insertResult>0) {
 			result= true;

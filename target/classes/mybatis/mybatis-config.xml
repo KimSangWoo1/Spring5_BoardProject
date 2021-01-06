@@ -5,18 +5,15 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias alias="MemberVO"
-			type="com.project.spring.tutorial.vo.MemberVO" />
-		<typeAlias alias="ProductVO"
-			type="com..project.tutorial.vo.ProductVO" />
 		<typeAlias alias="UserVO"
 			type="com.project.spring.board.vo.UserVO" />
 		<typeAlias alias="BoardVO"
 			type="com.project.spring.board.vo.BoardVO" />
 	</typeAliases>
- 	
+ 	<!--  
 	<mappers>
 		<mapper resource="mapper/UserMapper.xml"/>
+		<mapper resource="mapper/BoardMapper.xml"/>
 	</mappers>
-	
+	-->
 </configuration>

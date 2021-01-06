@@ -62,7 +62,7 @@
          
          function DuplicatedUserCheck(){
           	 $.ajax({
-          		 url:"/myapp/signUpChk.do",
+          		 url:"/spring/signUpChk.do",
           		 type:"POST",
           		 data:{
           			 id:$("#id").val(),
