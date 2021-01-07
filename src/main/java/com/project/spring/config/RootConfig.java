@@ -1,7 +1,5 @@
 package com.project.spring.config;
 
-import java.lang.ModuleLayer.Controller;
-
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -16,7 +14,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.RestController;
 
 @Configuration
-@EnableAspectJAutoProxy
 @Import({
 	ContextDataSource.class,
 	ContextSqlMapper.class

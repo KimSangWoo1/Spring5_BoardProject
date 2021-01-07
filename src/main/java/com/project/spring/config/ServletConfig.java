@@ -3,6 +3,7 @@ package com.project.spring.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -21,6 +22,7 @@ import com.project.spring.board.interceptor.LoginInterceptor;
  */
 //스프링 MVC 활성화
 @EnableWebMvc 
+@EnableAspectJAutoProxy
 //@Component 어노테이션 및 streotype(@Service, @Repository, @Controller.) 어노테이션이 부여된 Class들을 자동으로 Scan하여 Bean으로 등록해준다.
 @ComponentScan(basePackages = { "com.project.spring.board" })
 public class ServletConfig implements WebMvcConfigurer {

@@ -112,9 +112,7 @@ public class BoardController {
 		Pagination pagination = new Pagination(listCnt, curPage);
 		// 3. 뷰페이징 게시글 리스트 가져오기
 		List<BoardVO> boardList = boardService.boardPagingListService(pagination);
-		for (BoardVO board : boardList) {
-			System.out.println(board.getTitle());
-		}
+	
 		// 4. 뷰페이징 게시글 리스트 모델 뷰 반환
 		mv.addObject("boardList", boardList);
 		mv.addObject("pagination", pagination);

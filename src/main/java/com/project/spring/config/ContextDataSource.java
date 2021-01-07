@@ -36,9 +36,9 @@ public class ContextDataSource {
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-		dataSource.setUrl("jdbc:mariadb://121.169.194.198:3306/spring");
-		dataSource.setUsername("planty");
-		dataSource.setPassword("Planty2020");
+		dataSource.setUrl("jdbc:mariadb://localhost:3306/spring");
+		dataSource.setUsername("ksw");
+		dataSource.setPassword("1234");
 		dataSource.setDefaultAutoCommit(false);
 		return dataSource;
 	}

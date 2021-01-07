@@ -2,12 +2,11 @@ package com.project.spring.board.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import com.project.spring.board.vo.UserVO;
 
-@Repository
+
 @Mapper
 public interface UserMapper {
 

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import com.project.spring.board.util.Pagination;
 import com.project.spring.board.vo.BoardVO;
 
-@Repository
 @Mapper
 public interface BoardMapper {
 
