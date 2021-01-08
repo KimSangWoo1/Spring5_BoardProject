@@ -59,6 +59,9 @@ public class Pagination {
     	this.startIndex = (curPage-1) * pageSize;
 
     }
+	public void pageInfo(int listCnt,  int curPage) {
+		new Pagination(listCnt, curPage);
+	}
 	
 	
 	   public int getPageSize() {

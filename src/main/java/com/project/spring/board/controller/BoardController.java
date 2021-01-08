@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.spring.board.service.BoardService;
 import com.project.spring.board.util.Pagination;
+import com.project.spring.board.util.Search;
 import com.project.spring.board.vo.BoardVO;
 
 
@@ -103,19 +104,28 @@ public class BoardController {
 
 	// 5. 뷰 페이징 리스트 뷰
 	@RequestMapping(value = "board/boardPagingList.do", method = RequestMethod.GET)
-	public ModelAndView boardPagingList(@RequestParam(defaultValue = "1") int curPage) throws Exception {
+	public ModelAndView boardPagingList(@RequestParam(required = false, defaultValue = "1") int curPage,
+										@RequestParam(required = false, defaultValue = "title") String searchType,
+										@RequestParam(required = false) String keyWord) throws Exception {
+		
 		ModelAndView mv = new ModelAndView("/jsp/board/boardViewPaging");
 
+		//검색
+		Search search = new Search();
+		search.setSearchType(searchType);
+		search.setKeyWord(keyWord);
+		
 		// 1. 게시글  총 갯수 가져오기
-		int listCnt = boardService.boardAllListSize();
+		int listCnt = boardService.boardAllListSize(search);
 		// 2. 뷰페이징 범위, 페이지 갯수 설정
-		Pagination pagination = new Pagination(listCnt, curPage);
+		//Pagination pagination = new Pagination(listCnt, curPage);
+		search.pageInfo(listCnt, curPage);
 		// 3. 뷰페이징 게시글 리스트 가져오기
-		List<BoardVO> boardList = boardService.boardPagingListService(pagination);
+		List<BoardVO> boardList = boardService.boardPagingListService(search);
 	
 		// 4. 뷰페이징 게시글 리스트 모델 뷰 반환
 		mv.addObject("boardList", boardList);
-		mv.addObject("pagination", pagination);
+		mv.addObject("pagination", search);
 		return mv;
 	}
 

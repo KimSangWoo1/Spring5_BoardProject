@@ -31,6 +31,7 @@ public class ContextSqlMapper {
         		.getResources("classpath*:mybatis/mapper/*.xml");
         factoryBean.setMapperLocations(res);
         factoryBean.setTypeAliasesPackage("com.project.spring.board.vo"); //factoryBean.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
+  
         return factoryBean;
     }
 

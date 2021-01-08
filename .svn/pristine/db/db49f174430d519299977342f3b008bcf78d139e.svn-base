@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.spring.board.mapper.BoardMapper">
+
+	<!-- 게시글 리스트 가져오기 -->
+	<select id="selectBoardList" parameterType="hashmap"
+		resultType="hashmap">
+		<![CDATA[
+            SELECT
+                *
+            FROM
+                tbl_board 
+            ORDER BY group_no DESC, group_order ASC
+        ]]>
+	</select>
+	<!-- 게시글 작성 useGeneratedKeys="true" keyProperty="IDX" AutoInCrement 사용했기에 적어줘야 함 -->
+	<insert id="boardInsert" parameterType="BoardVO"
+		useGeneratedKeys="true" keyProperty="idx">
+		<![CDATA[
+            INSERT INTO tbl_board
+			(
+				title,
+				content,
+				hit_count,
+				create_time,
+				create_id,
+				group_no,
+				group_order,
+				depth
+			)
+			VALUES
+			(
+				#{title},
+				#{content},
+				0,
+				NOW(),
+				#{create_id},
+				#{group_no},
+				0,
+				0
+			)
+        ]]>
+	</insert>
+	<!-- 게시글 작성시 group_no 값 넣어주기 -->
+	<update id="boardUpdateGroupNO" parameterType="BoardVO">
+		<![CDATA[
+			UPDATE 
+				tbl_board
+			SET
+				group_no = #{group_no}
+			WHERE 
+				idx = #{idx}
+		]]>
+	</update>
+	
+		<!-- 게시글 상세 내용 -->
+	<select id="boardDetailView" parameterType="int" resultType="BoardVO">
+		<![CDATA[ 
+			SELECT * FROM tbl_board WHERE idx=#{idx} 
+		]]>
+	</select>
+	
+	<!-- 조회수 올리기 -->
+	<update id="boardAddHitCount" parameterType="BoardVO">
+		<![CDATA[ 
+			UPDATE tbl_board  SET hit_count = #{hit_count} WHERE idx=#{idx} 
+		]]>
+	</update>
+	
+	<!-- 게시글 전채 갯수  -->
+	<select id="boardAllListSize" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM tbl_board
+		]]>	
+	</select>
+	
+	<!-- 패이지 갯수 만큼 가져오기 -->
+	<select id="boardPagingList" parameterType="int" resultType="com.project.spring.board.vo.BoardVO">
+		<![CDATA[
+		SELECT 
+			*
+		FROM 
+			tbl_board
+		WHERE idx > 0		
+		ORDER BY group_no DESC, group_order ASC
+		 LIMIT #{startIndex}, #{pageSize}
+		]]>
+	</select>
+	
+	<delete id="boardDelete" parameterType="int">
+		<![CDATA[
+			DELETE FROM tbl_board WHERE idx=#{idx}
+		]]>
+	</delete>
+
+		<!-- 게시글 수정 -->
+	<update id="boardUpdate" parameterType="com.project.spring.board.vo.BoardVO">
+		<![CDATA[ 
+			UPDATE tbl_board
+			SET
+				title = #{title},
+				content = #{content}
+			WHERE
+				idx = #{idx}
+		]]>
+	</update>
+	<!-- 게시글 마지막 번호 가져오기 -->
+	<select id="selectLastBoardNo" resultType="int">
+		<![CDATA[
+			SELECT idx FROM tbl_board ORDER BY idx DESC limit 1
+		]]>
+	</select>
+	
+	<!-- 게시글 답글 준비 -->
+	<select id="boardReplyReady" parameterType="int" resultType="com.project.spring.board.vo.BoardVO">
+		SELECT group_no, 
+		group_order, depth FROM tbl_board WHERE idx= #{idx} 
+	</select>
+	
+	<!-- 게시글 마지막 group_order 값 가져오기 -->
+	<select id="boardLastGroupOrder"  parameterType="int" resultType="int">
+		SELECT 
+			group_order 
+		FROM tbl_board 
+		WHERE group_no =#{idx} 
+		ORDER BY group_order DESC 
+		LIMIT 1
+	</select>	
+	
+	<!-- 게시글 답글 달기 -->
+	<insert id="boardReply" parameterType="com.project.spring.board.vo.BoardVO">
+		INSERT INTO tbl_board
+			(
+				title,
+				content,
+				hit_count,
+				create_time,
+				create_id,
+				group_no,
+				group_order,
+				depth
+			)
+			VALUES
+			(
+				#{title},
+				#{content},
+				0,
+				NOW(),
+				#{create_id},
+				#{group_no},
+				#{group_order},
+				#{depth}
+			)
+	</insert>
+	<!-- 답 답글일 경우 다음 답글에 order 값을 찾는다. -->
+	<select id="boardNextGroupOrder" parameterType="com.project.spring.board.vo.BoardVO" resultType="int">
+		<![CDATA[
+			SELECT
+			IFNULL(MIN(group_order),0)group_order
+			FROM
+				tbl_board
+			WHERE
+				group_no=#{group_no} AND depth<=#{depth} AND group_order>#{group_order}
+			ORDER BY group_order ASC
+		
+		]]>
+		
+	</select>
+		<!--작성시 답 글들 order값 수정하기 +1-->
+	<update id="boardAddGroupOrder" parameterType="com.project.spring.board.vo.BoardVO">
+		<![CDATA[
+		UPDATE tbl_board 
+		SET
+			group_order = group_order+1
+		Where 
+			group_no = #{group_no} AND group_order >= #{group_order}
+		]]>
+	</update>
+	
+	<!-- 게시글 삭제 전 준비 -->
+	<select id="boardDeleteReady" parameterType="int" resultType="com.project.spring.board.vo.BoardVO">
+		<![CDATA[
+			SELECT * FROM tbl_board WHERE idx=#{idx}
+		]]>
+	</select>
+	
+	<!-- 게시글 삭제 전 답글들 order값 수정하기 -1 -->
+	<update id="boardSubGroupOrder" parameterType="com.project.spring.board.vo.BoardVO">
+		<![CDATA[
+			UPDATE 
+				tbl_board
+			SET
+				group_order = group_order-1
+			WHERE 
+				group_no = #{group_no} AND group_order > #{group_order}
+		]]>
+	</update>
+</mapper>
+
+
+<!-- CDATA 태그안에서는 전부 문자열로 치환함 < , > ( ) 같은걸 쓰면 오류 날 경우를 없애줌 -->
+<!-- https://java119.tistory.com/70 -->

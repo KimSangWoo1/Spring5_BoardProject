@@ -69,20 +69,48 @@
 	</update>
 	
 	<!-- 게시글 전채 갯수  -->
-	<select id="boardAllListSize" resultType="int">
+	<select id="boardAllListSize" parameterType="com.project.spring.board.util.Search" resultType="int">
 		<![CDATA[
-			SELECT COUNT(*) FROM tbl_board
+			SELECT 
+				COUNT(*) 
+			FROM 
+				tbl_board
+			<trim prefix = "WHERE" prefixOverrids="AND|OR">
+				<if test="keyWord != null and keyWord != " ">
+					<if test = "searchType=='title'">
+						AND title like CONCAT('%',#{keyWord}, '%')
+					</if>
+					<if test="searchType=='content'">
+						AND create_id like CONCAT('%', #{keyWord}, '%')
+					</if>
+					<if test="searchType=='reg_id'">
+						AND idx like CONCAT('%', #{keyWord}, '%')
+					</if>
+	     		 </if>
+			</trim>	
 		]]>	
 	</select>
 	
 	<!-- 패이지 갯수 만큼 가져오기 -->
-	<select id="boardPagingList" parameterType="int" resultType="com.project.spring.board.vo.BoardVO">
+	<select id="boardPagingList" parameterType="com.project.spring.board.util.Search" resultType="BoardVO">
 		<![CDATA[
 		SELECT 
 			*
 		FROM 
 			tbl_board
-		WHERE idx > 0		
+		<trim prefix = "WHERE" prefixOverrids="AND|OR">
+			<if test="keyWord != null and keyWord != " ">
+				<if test = "searchType=='title'">
+					AND title like CONCAT('%',#{keyWord}, '%')
+				</if>
+				<if test="searchType=='content'">
+					AND create_id like CONCAT('%', #{keyWord}, '%')
+				</if>
+				<if test="searchType=='reg_id'">
+					AND idx like CONCAT('%', #{keyWord}, '%')
+				</if>
+     		 </if>
+		</trim>		
 		ORDER BY group_no DESC, group_order ASC
 		 LIMIT #{startIndex}, #{pageSize}
 		]]>
@@ -95,7 +123,7 @@
 	</delete>
 
 		<!-- 게시글 수정 -->
-	<update id="boardUpdate" parameterType="com.project.spring.board.vo.BoardVO">
+	<update id="boardUpdate" parameterType="BoardVO">
 		<![CDATA[ 
 			UPDATE tbl_board
 			SET
@@ -113,7 +141,7 @@
 	</select>
 	
 	<!-- 게시글 답글 준비 -->
-	<select id="boardReplyReady" parameterType="int" resultType="com.project.spring.board.vo.BoardVO">
+	<select id="boardReplyReady" parameterType="int" resultType="BoardVO">
 		SELECT group_no, 
 		group_order, depth FROM tbl_board WHERE idx= #{idx} 
 	</select>
@@ -129,7 +157,7 @@
 	</select>	
 	
 	<!-- 게시글 답글 달기 -->
-	<insert id="boardReply" parameterType="com.project.spring.board.vo.BoardVO">
+	<insert id="boardReply" parameterType="BoardVO">
 		INSERT INTO tbl_board
 			(
 				title,
@@ -154,7 +182,7 @@
 			)
 	</insert>
 	<!-- 답 답글일 경우 다음 답글에 order 값을 찾는다. -->
-	<select id="boardNextGroupOrder" parameterType="com.project.spring.board.vo.BoardVO" resultType="int">
+	<select id="boardNextGroupOrder" parameterType="BoardVO" resultType="int">
 		<![CDATA[
 			SELECT
 			IFNULL(MIN(group_order),0)group_order
@@ -168,7 +196,7 @@
 		
 	</select>
 		<!--작성시 답 글들 order값 수정하기 +1-->
-	<update id="boardAddGroupOrder" parameterType="com.project.spring.board.vo.BoardVO">
+	<update id="boardAddGroupOrder" parameterType="BoardVO">
 		<![CDATA[
 		UPDATE tbl_board 
 		SET
@@ -179,14 +207,14 @@
 	</update>
 	
 	<!-- 게시글 삭제 전 준비 -->
-	<select id="boardDeleteReady" parameterType="int" resultType="com.project.spring.board.vo.BoardVO">
+	<select id="boardDeleteReady" parameterType="int" resultType="BoardVO">
 		<![CDATA[
 			SELECT * FROM tbl_board WHERE idx=#{idx}
 		]]>
 	</select>
 	
 	<!-- 게시글 삭제 전 답글들 order값 수정하기 -1 -->
-	<update id="boardSubGroupOrder" parameterType="com.project.spring.board.vo.BoardVO">
+	<update id="boardSubGroupOrder" parameterType="BoardVO">
 		<![CDATA[
 			UPDATE 
 				tbl_board
@@ -196,6 +224,7 @@
 				group_no = #{group_no} AND group_order > #{group_order}
 		]]>
 	</update>
+	
 </mapper>
 
 

@@ -3,7 +3,7 @@ package com.project.spring.board.service;
 import java.util.List;
 import java.util.Map;
 
-import com.project.spring.board.util.Pagination;
+import com.project.spring.board.util.Search;
 import com.project.spring.board.vo.BoardVO;
 
 
@@ -17,9 +17,9 @@ public interface BoardService {
 	//4. 게시글 조회수 올리기
 	void boardAddHitCountService(BoardVO boardVO);
 	//5. 게시글 총 갯수
-	int boardAllListSize();
+	int boardAllListSize(Search search);
 	//6. 게시판 뷰페이징 리스트
-	List<BoardVO> boardPagingListService(Pagination pagination);
+	List<BoardVO> boardPagingListService(Search search);
 	//7. 게시판 삭제
 	void boardDeleteService(int idx);
 	//8. 게시판 수정

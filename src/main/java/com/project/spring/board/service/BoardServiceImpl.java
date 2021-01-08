@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.spring.board.mapper.BoardMapper;
 import com.project.spring.board.util.Pagination;
+import com.project.spring.board.util.Search;
 import com.project.spring.board.vo.BoardVO;
 
 
@@ -57,15 +58,15 @@ public class BoardServiceImpl implements BoardService {
 	
 	//5. 게시글 총 갯수 (뷰 페이징)
 	@Override
-	public int boardAllListSize() {
-		return boardMapper.boardAllListSize();
+	public int boardAllListSize(Search search) {
+		return boardMapper.boardAllListSize(search);
 	}
 
 	//6. 게시글 뷰 페이징 리스트
 	@Override
-	public List<BoardVO> boardPagingListService(Pagination pagination) {
+	public List<BoardVO> boardPagingListService(Search search) {
 
-		return boardMapper.boardPagingList(pagination);
+		return boardMapper.boardPagingList(search);
 	}
 	//7. 게시글 삭제
 	@Override

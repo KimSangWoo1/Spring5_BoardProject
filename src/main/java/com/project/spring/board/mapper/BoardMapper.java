@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.spring.board.util.Pagination;
+import com.project.spring.board.util.Search;
 import com.project.spring.board.vo.BoardVO;
 
 @Mapper
@@ -28,10 +29,10 @@ public interface BoardMapper {
 	void boardAddHitCount(BoardVO boardVO);
 	
 	//5. 게시글 총 갯수 
-	int boardAllListSize();
+	int boardAllListSize(Search search);
 	
 	//6. 뷰 페이징 게시글 리스트
-	List<BoardVO> boardPagingList(Pagination pagination);
+	List<BoardVO> boardPagingList(Search search);
 	
 	//7. 게시글 삭제
 	void boardDelete(@Param("idx")int idx);
@@ -63,5 +64,7 @@ public interface BoardMapper {
 	//16. 게시글 원글이 아닐 경우 order 값 수정
 	void boardSubGroupOrder(BoardVO boardVO);
 	
+	//17. 게시글 검색 & 리스트
+	BoardVO boardSearchList(BoardVO boardVO);
 	
 }

@@ -36,7 +36,7 @@
 				<c:when test="${fn:length(boardList) > 0}">
 					<c:forEach items="${boardList}" var="row">
 						<tr>
-							<td><a href="/spring/board/boardDetailView.do?idx=${row.idx}&curPage=${pagination.curPage}&hit_count=1">${row.idx}</a></td>
+							<td><a href="/spring/board/boardDetailView.do?idx=${row.idx}&curPage=${search.curPage}&hit_count=1">${row.idx}</a></td>
 							<td>${row.title }</td>
 							<td>${row.hit_count }</td>
 							<td>${row.create_id }</td>
@@ -54,22 +54,22 @@
 	</table>
 </div>
 
-<!-- pagination{s} -->
+<!-- search{s} -->
 	<div  class="box-footer">
-		<ul class="pagination">
-			<c:if test="${pagination.curRange ne 1}">
+		<ul class="search">
+			<c:if test="${search.curRange ne 1}">
 				<li class="page-item">
-					<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${pagination.startPage-1}">Previous</a>
+					<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${search.startPage-1}">Previous</a>
 				</li>
 			</c:if>	
-			<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="curPage">
-				<li class="page-item <c:out value="${pagination.curPage == curPage ? 'active' : ''}"/> ">
+			<c:forEach begin="${search.startPage}" end="${search.endPage}" var="curPage">
+				<li class="page-item <c:out value="${search.curPage == curPage ? 'active' : ''}"/> ">
 					<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${curPage}"> ${curPage} </a>
 				</li>
 			</c:forEach>
-			<c:if test="${pagination.curRange lt pagination.rangeCnt}">
+			<c:if test="${search.curRange lt search.rangeCnt}">
 				<li class="page-item">
-					<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${pagination.endPage+1}" >Next</a>		
+					<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${search.endPage+1}" >Next</a>		
 				</li>
 			</c:if>
 		</ul>

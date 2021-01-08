@@ -33,12 +33,12 @@
       </li>
 
     </ul>
-
 	<div class="form-group row justify-content-center">
 		<div class="w100" style="padding-right:10px">
 			<select class="form-control form-control-sm" name="searchType" id="searchType">
 				<option value="title">제목</option>
-				<option value="reg_id">작성자</option>
+				<option value="idx">번호</option>
+				<option value="create_id">작성자</option>
 			</select>
 		</div>
 		<form class="form-inline my-2 my-md-0">
@@ -51,7 +51,7 @@
 <script type="text/javascript">
 $(document).on('click', '#btnSearch', function(e){
 	e.preventDefault();
-	var url = "${pageContext.request.contextPath}/board/getBoardList";
+	var url = "${pageContext.request.contextPath}/board/boardPagingList.do?";
 	url = url + "?searchType=" + $('#searchType').val();
 	url = url + "&keyword=" + $('#keyword').val();
 	location.href = url;
