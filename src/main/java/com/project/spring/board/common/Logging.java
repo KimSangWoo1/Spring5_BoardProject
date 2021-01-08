@@ -6,13 +6,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.springframework.context.annotation.ComponentScan;
+
 /*
  * 로그 어노테이션
- * 
  */
-@Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
+@ComponentScan(basePackages="com.project.spring")
 public @interface Logging {
 
 }

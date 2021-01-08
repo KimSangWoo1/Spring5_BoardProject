@@ -22,18 +22,15 @@ public class ContextSqlMapper {
 	
 	@Autowired
 	ApplicationContext applicationContext;
-	@Autowired
-	ContextDataSource datasource;
 
     @Bean
     public SqlSessionFactoryBean sqlSessionFactory() throws IOException {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-        factoryBean.setDataSource(datasource.dataSource());
+        factoryBean.setDataSource((DataSource) applicationContext.getBean("dataSource"));
         Resource[] res=new PathMatchingResourcePatternResolver()
         		.getResources("classpath*:mybatis/mapper/*.xml");
         factoryBean.setMapperLocations(res);
-        //factoryBean.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
-        factoryBean.setTypeAliasesPackage("com.project.spring.board.vo");
+        factoryBean.setTypeAliasesPackage("com.project.spring.board.vo"); //factoryBean.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
         return factoryBean;
     }
 

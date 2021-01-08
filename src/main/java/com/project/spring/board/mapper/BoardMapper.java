@@ -13,10 +13,10 @@ import com.project.spring.board.vo.BoardVO;
 @Mapper
 public interface BoardMapper {
 
-	//1. �Խñ� ����Ʈ ����
+	//1. 게시글 리스트
 	List<Map<String, Object>> selectBoardList(Map<String, Object> map);
 
-	//2. �Խñ� �ۼ�
+	//2. 게시글 작성
 	void boardInsert(BoardVO boardVO);
 	//2-1 작성한 게시글 group_order 값 설정
 	void boardUpdateGroupNO(BoardVO boardVO);

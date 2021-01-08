@@ -2,9 +2,13 @@ package com.project.spring.board.common;
 
 import java.util.Arrays;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.mybatis.logging.LoggerFactory;
 
 import org.springframework.stereotype.Component;
@@ -53,6 +57,17 @@ public class LogAdvice {
 		// 타겟 메소드의 리턴값을 다시 반환한다. 필요 시 수정도 가능하다.
 		return result;
 	}
+	
+	@Before("@annotation(Logging)")
+	public void beforeLogPerf(JoinPoint joinPoint) throws Throwable{
+		System.out.println("@Before :"+joinPoint.getSignature().getName()+" : before excute :");
+	}
+	
+	@After("@annotation(Logging)")
+	public void afterLogPerf(JoinPoint joinPoint) throws Throwable{
+		System.out.println("@After :"+joinPoint.getSignature().getName()+" : After excute :");
+	}
+	
 }
 
 

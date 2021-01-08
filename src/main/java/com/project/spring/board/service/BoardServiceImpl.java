@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.spring.board.common.Logging;
+
 import com.project.spring.board.mapper.BoardMapper;
 import com.project.spring.board.util.Pagination;
 import com.project.spring.board.vo.BoardVO;
