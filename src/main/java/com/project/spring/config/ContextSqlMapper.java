@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -24,19 +25,21 @@ public class ContextSqlMapper {
 	ApplicationContext applicationContext;
 
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactory() throws IOException {
+    public SqlSessionFactoryBean sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource((DataSource) applicationContext.getBean("dataSource"));
         Resource[] res=new PathMatchingResourcePatternResolver()
         		.getResources("classpath*:mybatis/mapper/*.xml");
         factoryBean.setMapperLocations(res);
-        factoryBean.setTypeAliasesPackage("com.project.spring.board.vo"); //factoryBean.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
-  
+        //factoryBean.setTypeAliasesPackage("com.project.spring.board.vo"); 
+        factoryBean.setConfigLocation(applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
+    
         return factoryBean;
     }
 
     @Bean
     public SqlSessionTemplate sqlSession(SqlSessionFactory sqlSessionFactory) {
+        sqlSessionFactory.getConfiguration().setJdbcTypeForNull(JdbcType.NULL); 
         return new SqlSessionTemplate(sqlSessionFactory);
     }
     

@@ -42,7 +42,7 @@
 			</select>
 		</div>
 		<form class="form-inline my-2 my-md-0">
-	      <input class="form-control" type="text" id="keyword" name="keyword" placeholder="Search">
+	      <input class="form-control" type="text" id="keyWord" name="keyword" placeholder="Search">
 	    </form>
 	    <button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch">°Ë»ö</button>
 	</div>
@@ -53,7 +53,7 @@ $(document).on('click', '#btnSearch', function(e){
 	e.preventDefault();
 	var url = "${pageContext.request.contextPath}/board/boardPagingList.do?";
 	url = url + "?searchType=" + $('#searchType').val();
-	url = url + "&keyword=" + $('#keyword').val();
+	url = url + "&keyWord=" + $('#keyWord').val();
 	location.href = url;
 	console.log(url);
 

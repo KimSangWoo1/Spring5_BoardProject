@@ -75,16 +75,16 @@
 				COUNT(*) 
 			FROM 
 				tbl_board
-			<trim prefix = "WHERE" prefixOverrids="AND|OR">
-				<if test="keyWord != null and keyWord != " ">
+			<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<if test="keyWord != null and keyWord != ''">
 					<if test = "searchType=='title'">
-						AND title like CONCAT('%',#{keyWord}, '%')
+						AND title like CONCAT('%',#{keyWord, jdbcType=VARCHAR}, '%')
 					</if>
 					<if test="searchType=='content'">
-						AND create_id like CONCAT('%', #{keyWord}, '%')
+						AND create_id like CONCAT('%', #{keyWord, jdbcType=VARCHAR}, '%')
 					</if>
 					<if test="searchType=='reg_id'">
-						AND idx like CONCAT('%', #{keyWord}, '%')
+						AND idx like CONCAT('%', #{keyWord, jdbcType=VARCHAR}, '%')
 					</if>
 	     		 </if>
 			</trim>	
@@ -98,16 +98,16 @@
 			*
 		FROM 
 			tbl_board
-		<trim prefix = "WHERE" prefixOverrids="AND|OR">
-			<if test="keyWord != null and keyWord != " ">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyWord != null and keyWord !=''">
 				<if test = "searchType=='title'">
-					AND title like CONCAT('%',#{keyWord}, '%')
+					AND title like CONCAT('%',#{keyWord, jdbcType=VARCHAR}, '%')
 				</if>
 				<if test="searchType=='content'">
-					AND create_id like CONCAT('%', #{keyWord}, '%')
+					AND create_id like CONCAT('%', #{keyWord, jdbcType=VARCHAR}, '%')
 				</if>
 				<if test="searchType=='reg_id'">
-					AND idx like CONCAT('%', #{keyWord}, '%')
+					AND idx like CONCAT('%', #{keyWord, jdbcType=VARCHAR}, '%')
 				</if>
      		 </if>
 		</trim>		

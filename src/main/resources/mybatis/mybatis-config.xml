@@ -4,12 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+
+	
 	<typeAliases>
 		<typeAlias alias="UserVO"
 			type="com.project.spring.board.vo.UserVO" />
 		<typeAlias alias="BoardVO"
 			type="com.project.spring.board.vo.BoardVO" />
+		<typeAlias alias="Pagination"
+			type="com.project.spring.board.util.Pagination"/>
+		<typeAlias alias="Search"
+			type="com.project.spring.board.util.Search"/>
+			
 	</typeAliases>
+	
+
  	<!--  
 	<mappers>
 		<mapper resource="mapper/UserMapper.xml"/>
