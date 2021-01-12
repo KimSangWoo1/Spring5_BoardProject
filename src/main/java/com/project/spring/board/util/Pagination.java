@@ -28,9 +28,9 @@ public class Pagination {
     private int nextPage;
     
     public Pagination () {}
-	public Pagination (int listCnt,  int curPage){
-    
-    	//현재 페이지 설정
+
+	public void pageInfo(int listCnt,  int curPage) {
+	 	//현재 페이지 설정
     	this.curPage=curPage;
     	//게시글 총 갯수 설정
     	this.listCnt=listCnt;
@@ -57,10 +57,6 @@ public class Pagination {
     	
     	//startIndex����
     	this.startIndex = (curPage-1) * pageSize;
-
-    }
-	public void pageInfo(int listCnt,  int curPage) {
-		new Pagination(listCnt, curPage);
 	}
 	
 	

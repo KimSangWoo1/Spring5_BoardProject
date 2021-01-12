@@ -71,10 +71,8 @@
 	<!-- 게시글 전채 갯수  -->
 	<select id="boardAllListSize" parameterType="com.project.spring.board.util.Search" resultType="int">
 		<![CDATA[
-			SELECT 
-				COUNT(*) 
-			FROM 
-				tbl_board
+			SELECT COUNT(*) FROM tbl_board
+		]]>	
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 				<if test="keyWord != null and keyWord != ''">
 					<if test = "searchType=='title'">
@@ -88,33 +86,32 @@
 					</if>
 	     		 </if>
 			</trim>	
-		]]>	
+		
 	</select>
 	
 	<!-- 패이지 갯수 만큼 가져오기 -->
 	<select id="boardPagingList" parameterType="com.project.spring.board.util.Search" resultType="BoardVO">
 		<![CDATA[
-		SELECT 
-			*
-		FROM 
-			tbl_board
+		SELECT * FROM tbl_board
+		]]>
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="keyWord != null and keyWord !=''">
 				<if test = "searchType=='title'">
-					AND title like CONCAT('%',#{keyWord, jdbcType=VARCHAR}, '%')
+					AND title LIKE CONCAT('%',#{keyWord, jdbcType=VARCHAR}, '%')
 				</if>
 				<if test="searchType=='content'">
-					AND create_id like CONCAT('%', #{keyWord, jdbcType=VARCHAR}, '%')
+					AND create_id LIKE CONCAT('%', #{keyWord, jdbcType=VARCHAR}, '%')
 				</if>
 				<if test="searchType=='reg_id'">
-					AND idx like CONCAT('%', #{keyWord, jdbcType=VARCHAR}, '%')
+					AND idx LIKE CONCAT('%', #{keyWord, jdbcType=VARCHAR}, '%')
 				</if>
      		 </if>
 		</trim>		
 		ORDER BY group_no DESC, group_order ASC
 		 LIMIT #{startIndex}, #{pageSize}
-		]]>
+	
 	</select>
+	
 	
 	<delete id="boardDelete" parameterType="int">
 		<![CDATA[

@@ -25,12 +25,20 @@
 		 	 <input type="button" class="btn btn-primary" id="go_update" value="수정"/>
 		 	 <input type="button" class="btn btn-danger" id="go_delete" value="삭제"/>
 		  </c:when>
+		  <c:when test="${!empty fn:trim(search.keyWord)}">
+		  	<input type="hidden" id="keyWord" value="${search.keyWord}"/>
+		  </c:when>
 	  </c:choose>
 </body>
 <script type="text/javascript">
 		$(document).ready(function() {
 			$("#go_list").on('click', function() {
-				location.href = "${pageContext.request.contextPath}/board/boardPagingList.do?curPage=${curPage}";
+				if($("#keyWord").val()){
+					location.href = "${pageContext.request.contextPath}/board/boardPagingList.do?curPage=${curPage}&searchType=${search.searchType}&keyWord=${search.keyWord}";
+				}else{
+					location.href = "${pageContext.request.contextPath}/board/boardPagingList.do?curPage=${curPage}";
+				}
+			
 			})
 			$("#go_update").on('click', function() {
 				location.href = "${pageContext.request.contextPath}/board/boardUpdateView.do?idx=${boardVO.idx}&curPage=${curPage}";
@@ -43,18 +51,5 @@
 			})
 		});
 		
-		function login_Click() {
-			var loginForm = document.loginForm;
-			var userid = loginForm.id.value;
-			var userpw = loginForm.pw.value;
-			if (!userid || !userpw) {
-				alert("아이디와 비밀번호를 입력하세요");
-			} else {
-				loginCheck();
-			}
-		}
-		function goSignUp() {
-			location.href = "${pageContext.request.contextPath}/signup.do/";
-		}
 </script>
 </html>

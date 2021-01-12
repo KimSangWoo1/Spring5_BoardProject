@@ -72,8 +72,11 @@ public class BoardController {
 	@RequestMapping(value = "board/boardDetailView.do", method = RequestMethod.GET)
 	public ModelAndView boardDetailView(HttpServletRequest request, @RequestParam int idx,
 			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(required = false, defaultValue = "0") int hit_count) {
+			@RequestParam(required = false, defaultValue = "0") int hit_count,
+			@RequestParam(required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String keyWord) {
 
+		Search search = new Search(searchType, keyWord);
 		// 조회수 올리기
 		BoardVO boardVO = boardService.boardDetailViewService(idx);
 		if (hit_count != 0) {
@@ -98,6 +101,7 @@ public class BoardController {
 		}
 
 		mv.addObject("edit", edit);
+		mv.addObject("search",search);
 
 		return mv;
 	}
@@ -111,21 +115,21 @@ public class BoardController {
 		ModelAndView mv = new ModelAndView("/jsp/board/boardViewPaging");
 
 		//검색
-		Search search = new Search();
-		search.setSearchType(searchType);
-		search.setKeyWord(keyWord);
+		Search search = new Search(searchType, keyWord);
 		
 		// 1. 게시글  총 갯수 가져오기
 		int listCnt = boardService.boardAllListSize(search);
 		// 2. 뷰페이징 범위, 페이지 갯수 설정
-		//Pagination pagination = new Pagination(listCnt, curPage);
+		//Pagination pagination = new Pagination();
 		search.pageInfo(listCnt, curPage);
+
+
 		// 3. 뷰페이징 게시글 리스트 가져오기
 		List<BoardVO> boardList = boardService.boardPagingListService(search);
 	
 		// 4. 뷰페이징 게시글 리스트 모델 뷰 반환
 		mv.addObject("boardList", boardList);
-		mv.addObject("pagination", search);
+		mv.addObject("search", search);
 		return mv;
 	}
 

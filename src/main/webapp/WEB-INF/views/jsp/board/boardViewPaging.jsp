@@ -36,7 +36,14 @@
 				<c:when test="${fn:length(boardList) > 0}">
 					<c:forEach items="${boardList}" var="row">
 						<tr>
-							<td><a href="/spring/board/boardDetailView.do?idx=${row.idx}&curPage=${search.curPage}&hit_count=1">${row.idx}</a></td>
+							<c:choose>
+								<c:when test="${!empty fn:trim(search.keyWord)}">
+									<td><a href="/spring/board/boardDetailView.do?idx=${row.idx}&curPage=${search.curPage}&hit_count=1&searchType=${search.searchType}&keyWord=${search.keyWord}">${row.idx}</a></td>
+								</c:when>
+								<c:otherwise>
+									<td><a href="/spring/board/boardDetailView.do?idx=${row.idx}&curPage=${search.curPage}&hit_count=1">${row.idx}</a></td>
+								</c:otherwise>
+							</c:choose>
 							<td>${row.title }</td>
 							<td>${row.hit_count }</td>
 							<td>${row.create_id }</td>
@@ -57,26 +64,48 @@
 <!-- search{s} -->
 	<div  class="box-footer">
 		<ul class="search">
-			<c:if test="${search.curRange ne 1}">
-				<li class="page-item">
-					<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${search.startPage-1}">Previous</a>
-				</li>
+			<c:if test="${search.keyWord ne null}">
+				<c:if test="${search.curRange ne 1}">
+					<li class="page-item">
+						<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${search.startPage-1}&searchType=${search.searchType}&keyWord=${search.keyWord}">Previous</a>
+					</li>		
+				</c:if>			
+				<c:forEach begin="${search.startPage}" end="${search.endPage}" var="curPage">
+					<li class="page-item <c:out value="${search.curPage == curPage ? 'active' : ''}"/> ">
+						<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${curPage}&searchType=${search.searchType}&keyWord=${search.keyWord}"> ${curPage} </a>
+					</li>
+				</c:forEach>
+				<c:if test="${search.curRange lt search.rangeCnt}">
+					<li class="page-item">
+						<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${search.endPage+1}&searchType=${search.searchType}&keyWord=${search.keyWord}" >Next</a>		
+					</li>
+				</c:if>
 			</c:if>	
-			<c:forEach begin="${search.startPage}" end="${search.endPage}" var="curPage">
-				<li class="page-item <c:out value="${search.curPage == curPage ? 'active' : ''}"/> ">
-					<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${curPage}"> ${curPage} </a>
-				</li>
-			</c:forEach>
-			<c:if test="${search.curRange lt search.rangeCnt}">
-				<li class="page-item">
-					<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${search.endPage+1}" >Next</a>		
-				</li>
+			
+			
+			<c:if test="${empty fn:trim(search.keyWord)}">
+				<c:if test="${search.curRange ne 1}">
+					<li class="page-item">
+						<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${search.startPage-1}">Previous</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${search.startPage}" end="${search.endPage}" var="curPage">
+					<li class="page-item <c:out value="${search.curPage == curPage ? 'active' : ''}"/> ">
+						<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${curPage}"> ${curPage} </a>
+					</li>
+				</c:forEach>
+				<c:if test="${search.curRange lt search.rangeCnt}">
+					<li class="page-item">
+						<a class="page-link" href="${path}/spring/board/boardPagingList.do?curPage=${search.endPage+1}" >Next</a>		
+					</li>
+				</c:if>	
 			</c:if>
 		</ul>
 	</div>
+
 		<!--
 			 == is JSTL eq 
-			!=  is JSTL ne
+			!=  is JSTL ne  
 			<   is JSTL lt
 			>   is JSTL gt
 			<= is JSTL le

@@ -5,6 +5,10 @@ public class Search extends Pagination {
 	private String searchType;
 	private String keyWord;
 	
+	public Search(String searchType, String keyWord) {
+		this.searchType= searchType;
+		this.keyWord = keyWord;
+	}
 	public String getSearchType() {
 		return searchType;
 	}

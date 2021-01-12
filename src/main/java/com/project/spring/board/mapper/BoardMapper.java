@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import com.project.spring.board.util.Pagination;
@@ -27,7 +28,7 @@ public interface BoardMapper {
 	
 	//4. 게시글 조회수 올리기
 	void boardAddHitCount(BoardVO boardVO);
-	
+
 	//5. 게시글 총 갯수 
 	int boardAllListSize(Search search);
 	
