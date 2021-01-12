@@ -63,7 +63,7 @@
 
 <!-- search{s} -->
 	<div  class="box-footer">
-		<ul class="search">
+		<ul class="pagination">
 			<c:if test="${search.keyWord ne null}">
 				<c:if test="${search.curRange ne 1}">
 					<li class="page-item">

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.spring.board.mapper.BoardMapper;
 import com.project.spring.board.util.Pagination;
@@ -28,6 +28,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	//2. 게시글 작성
+	@Transactional
 	@Override
 	public void boardInsertService(BoardVO boardVO) throws Exception {
 		 boardMapper.boardInsert(boardVO);
@@ -45,7 +46,8 @@ public class BoardServiceImpl implements BoardService {
 		 return boardMapper.boardDetailView(idx);
 	}
 	
-	//4. 게시글 조회수 증가
+	//4. 게시글 조회수 증가	
+	@Transactional
 	@Override
 	public void boardAddHitCountService(BoardVO boardVO) {
 	
@@ -69,11 +71,13 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.boardPagingList(search);
 	}
 	//7. 게시글 삭제
+	@Transactional
 	@Override
 	public void boardDeleteService(int idx) {
 		boardMapper.boardDelete(idx);
 	}	
 	//8. 게시글 수정
+	@Transactional
 	@Override
 	public void boardUpdateService(BoardVO boardVO) {
 		System.out.println("1수정 - > 제목: "+boardVO.getTitle());
@@ -90,6 +94,7 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.boardLastGroupOrder(idx);
 	}
 	//11. 게시글 답글 달기
+	@Transactional
 	@Override
 	public void boardReplyService(BoardVO boardVO) {
 		boardMapper.boardReply(boardVO);
@@ -100,16 +105,19 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.boardNextGroupOrder(boardVO);
 	}
 	//13. 게시글 답 답글 작성시 order값 변동 될 것들 수정하기
+	@Transactional
 	@Override
 	public void boardAddGroupOrderService(BoardVO boardVO) {
 		boardMapper.boardAddGroupOrder(boardVO);
 	}
 	//14. 게시글 삭제 전 준비
+	@Transactional
 	@Override
 	public BoardVO boardDeleteReadyService(int idx) {
 		return boardMapper.boardDeleteReady(idx);
 	}
 	//15. 게시글 원글이 아닐 경우 order 값 수정
+	@Transactional
 	@Override
 	public void boardSubGroupOrderService(BoardVO boardVO) {
 		boardMapper.boardSubGroupOrder(boardVO);

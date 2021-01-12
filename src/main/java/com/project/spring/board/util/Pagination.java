@@ -35,19 +35,19 @@ public class Pagination {
     	//게시글 총 갯수 설정
     	this.listCnt=listCnt;
     	
-    	//1. ��ü ������ ��   ex) ��ü �Խñ� ��/ �������� ������ �Խñ� �� = ��ü ������ ��  
+    	//1. 페이지 총 갯수 =  게시글 총 갯수 / 페이지 용량
     	this.pageCnt = (int)Math.ceil(listCnt*1.0/pageSize);
-    	//2. ��ü �� ��  ex)  ��ü ������ ��/ ������ ������ ����  = ��ü ��� �� 
+    	//2. 범위 총 갯수 = 페이지 총 갯수 / 범위 용량
     	this.rangeCnt  = (int)Math.ceil(pageCnt*1.0/rangeSize);
-    //3.��� ���� (range Setting)    		
-    	//���� ���  ex)  ((4-1)/5) +1 = 1  
+    	//3.��� ���� (range Setting)    		
+    	//현재 범위 ex)  ((4-1)/5) +1 = 1  
     	this.curRange = (int)((curPage-1)/rangeSize) + 1;
-    	//����  ������ = (���� ���-1) * ��� ���� + 1
+    	//시작 페이지 = (현재 범위-1) * 범위 용량 + 1
     	this.startPage = (curRange-1)*rangeSize+1;
-    	//�� ������ = ���������� + ��� ���� -1
+    	//마지막 페이지= 시작 페이지 + 범위 용량 -1
     	this.endPage = startPage + rangeSize-1;
     	
-    	//�� ������ �ȳѵ��� ����
+    	//끝 페이지 설정
     	if(endPage>pageCnt) {
     		this.endPage =pageCnt;
     	}
