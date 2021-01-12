@@ -32,7 +32,30 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.4.2</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>5.4.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>5.4.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-acl</artifactId>
+			<version>5.4.2</version>
+		</dependency>
 		<!-- AOP -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -178,18 +201,9 @@
 			<version>4.7</version> <scope>test</scope> </dependency> -->
 	</dependencies>
 	<build>
-	<!-- 
-			<resources>
-			<resource>
-				<filtering>false</filtering>
-				<directory>src</directory>
-				<includes>
-					<include>**/com/project/spring/mapper/*.xml</include>
-					<include>resources/**/*.xml</include>
-				</includes>
-			</resource>
-		</resources>
-	 -->
+		<!-- <resources> <resource> <filtering>false</filtering> <directory>src</directory> 
+			<includes> <include>**/com/project/spring/mapper/*.xml</include> <include>resources/**/*.xml</include> 
+			</includes> </resource> </resources> -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
