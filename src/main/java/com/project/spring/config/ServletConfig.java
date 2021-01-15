@@ -43,7 +43,7 @@ public class ServletConfig implements WebMvcConfigurer {
 		registry.addViewController("/");
 		// registry.addViewController("/").setViewName("forward:/WEB-INF/views/jsp/login/login");
 		//우선순위를 가장 높게 잡는다.
-		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+		//registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 
 	}
 
